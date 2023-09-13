@@ -365,9 +365,11 @@ add your own code! Often, there will be hints about what to do or what
 function to use in the text leading up to a code block - if you need a
 bit of extra help on how to use a function, the internet has many
 excellent resources on R coding, which you can find using your favourite
-search engine. ## Load required libraries and datasets Note that you
-will need to install these libraries if you have never used these
-before.</p>
+search engine.</p>
+<div id="load-required-libraries-and-datasets" class="section level2">
+<h2>Load required libraries and datasets</h2>
+<p>Note that you will need to install these libraries if you have never
+used these before.</p>
 <pre class="r"><code>#### Example code to install packages
 #install.packages(&quot;data.table&quot;)
 #### Load required libraries
@@ -383,26 +385,29 @@ transactionData &lt;- fread(paste0(filePath,&quot;QVI_transaction_data.csv&quot;
 <pre><code>## Warning in (if (.Platform$OS.type == &quot;unix&quot;) system else shell)(paste0(&quot;(&quot;, :
 ## &#39;(C:/Users/sailo/Documents/University/Quantium job
 ## sim/QuantiumDataAnalysisQVI_transaction_data.csv) &gt;
-## C:\Users\sailo\AppData\Local\Temp\Rtmp6jmqlB\file116820dd6b20&#39; execution failed
+## C:\Users\sailo\AppData\Local\Temp\Rtmp4m15H7\file2a5c18653bb9&#39; execution failed
 ## with error code 1</code></pre>
 <pre><code>## Warning in fread(paste0(filePath, &quot;QVI_transaction_data.csv&quot;)): File
-## &#39;C:\Users\sailo\AppData\Local\Temp\Rtmp6jmqlB\file116820dd6b20&#39; has size 0.
+## &#39;C:\Users\sailo\AppData\Local\Temp\Rtmp4m15H7\file2a5c18653bb9&#39; has size 0.
 ## Returning a NULL data.table.</code></pre>
 <pre class="r"><code>customerData &lt;- fread(paste0(filePath,&quot;QVI_purchase_behaviour.csv&quot;))</code></pre>
 <pre><code>## Taking input= as a system command (&#39;C:/Users/sailo/Documents/University/Quantium job sim/QuantiumDataAnalysisQVI_purchase_behaviour.csv&#39;) and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.</code></pre>
 <pre><code>## Warning in (if (.Platform$OS.type == &quot;unix&quot;) system else shell)(paste0(&quot;(&quot;, :
 ## &#39;(C:/Users/sailo/Documents/University/Quantium job
 ## sim/QuantiumDataAnalysisQVI_purchase_behaviour.csv) &gt;
-## C:\Users\sailo\AppData\Local\Temp\Rtmp6jmqlB\file11687a7660e7&#39; execution failed
+## C:\Users\sailo\AppData\Local\Temp\Rtmp4m15H7\file2a5c66d86723&#39; execution failed
 ## with error code 1</code></pre>
 <pre><code>## Warning in fread(paste0(filePath, &quot;QVI_purchase_behaviour.csv&quot;)): File
-## &#39;C:\Users\sailo\AppData\Local\Temp\Rtmp6jmqlB\file11687a7660e7&#39; has size 0.
+## &#39;C:\Users\sailo\AppData\Local\Temp\Rtmp4m15H7\file2a5c66d86723&#39; has size 0.
 ## Returning a NULL data.table.</code></pre>
+</div>
 <div id="exploratory-data-analysis" class="section level2">
 <h2>Exploratory data analysis</h2>
 <p>The first step in any analysis is to first understand the data. Let’s
-take a look at each of the datasets provided. ### Examining transaction
-data We can use <code>str()</code> to look at the format of each column
+take a look at each of the datasets provided.</p>
+<div id="examining-transaction-data" class="section level3">
+<h3>Examining transaction data</h3>
+<p>We can use <code>str()</code> to look at the format of each column
 and see a sample of the data. As we have read in the dataset as a
 <code>data.table</code> object, we can also run
 <code>transactionData</code> in the console to see a sample of the data
@@ -525,6 +530,7 @@ transactionData[BRAND == &quot;RED&quot;, BRAND := &quot;RRD&quot;]
 # Over to you! Add any additional brand adjustments you think may be required.
 #### Check again
 # Over to you! Check the results look reasonable.</code></pre>
+</div>
 <div id="examining-customer-data" class="section level3">
 <h3>Examining customer data</h3>
 <p>Now that we are happy with the transaction dataset, let’s have a look
