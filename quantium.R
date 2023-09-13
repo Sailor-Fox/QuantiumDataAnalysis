@@ -1,3 +1,5 @@
+# https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html
+# useful data.table resource ^^^
 library(tidyverse)
 library(data.table)
 
@@ -33,6 +35,27 @@ idToRemove <- transactionData[PROD_QTY == 200, ]$LYLTY_CARD_NBR[1]
 transactionData <- transactionData[LYLTY_CARD_NBR != idToRemove]
 summary(transactionData)
 
+# count the number of transactions by date
+transactions_by_day <- transactionData[, N := .N, by = DATE][, list(DATE, N)] %>% 
+  unique()
+# make a sequence of 365 dates and join that to transactions_by_day (which is only 364 days)
+allDates <- as.data.table(list(0:364)) %>% 
+  setnames("V1", "DATE")
+allDates$DATE <- as.Date(allDates$DATE, origin = "2018-07-01")
+transactions_by_day <- merge(allDates, transactions_by_day, all = TRUE) 
+
+
+# graphing with all days of year now  
+ggplot(transactions_by_day, aes(x = DATE, y = N)) +
+  geom_line() +
+  labs(x = "Day", y = "Number of transactions", title = "Transactions over time") +
+  scale_x_date(breaks = "1 month") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+#
+# UP TO THIS BIT
+#
 
 
 
