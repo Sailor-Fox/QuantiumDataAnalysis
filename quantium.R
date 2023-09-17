@@ -43,21 +43,42 @@ allDates <- as.data.table(list(0:364)) %>%
   setnames("V1", "DATE")
 allDates$DATE <- as.Date(allDates$DATE, origin = "2018-07-01")
 transactions_by_day <- merge(allDates, transactions_by_day, all = TRUE) 
-
+transactions_by_day[is.na(N), N := 0]
 
 # graphing with all days of year now  
 ggplot(transactions_by_day, aes(x = DATE, y = N)) +
   geom_line() +
   labs(x = "Day", y = "Number of transactions", title = "Transactions over time") +
   scale_x_date(breaks = "1 month") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
+        plot.title = element_text(hjust = 0.5)) +
+  theme_bw()
+
+ggplot(transactions_by_day[months(DATE) == "December"], aes(x = DATE, y = N)) +
+  geom_line() +
+  labs(x = "Day", y = "Number of transactions", title = "Transactions over time") +
+  scale_x_date(breaks = "1 month") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
+        plot.title = element_text(hjust = 0.5)) +
+  theme_bw()
+
+transactionData[, PACK_SIZE := parse_number(PROD_NAME)]
+#### Always check your output
+#### Let's check if the pack sizes look sensible
+transactionData[, .N, PACK_SIZE][order(PACK_SIZE)]
+
+ggplot(transactionData) +
+  geom_histogram(aes(x=PACK_SIZE), bins=10) +
   theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5))
-#
-# UP TO THIS BIT
-#
+  labs(title = "Transactions by chip pack size",
+       y = "No. of transactions",
+       x = "Chip pack size (g)")
 
 
+# UP TO LINE 205 OF SAMPLE TEMPLATE
+transactionData[, BRAND := parse_vector(PROD_NAME, col_character())]
+transactionData[, BRAND := strsplit(PROD_NAME, " ")]
+# ^^^^ NOT WORKING CURRENTLY
 
 # MY OWN CODE (not based off sample template)
 # some initial visualisation of the purchasers
