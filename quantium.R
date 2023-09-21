@@ -3,7 +3,7 @@
 library(tidyverse)
 library(data.table)
 
-filePath <- "C:/Users/sailo/Documents/University/Quantium job sim/QuantiumDataAnalysis/"
+filePath <- "C:/Users/sailo/Documents/Github/Quantium job sim/QuantiumDataAnalysis/"
 transactionData <- fread(paste0(filePath,"QVI_transaction_data.csv"))
 customerData <- fread(paste0(filePath,"QVI_purchase_behaviour.csv"))
 str(customerData)
@@ -78,7 +78,13 @@ ggplot(transactionData) +
 # UP TO LINE 205 OF SAMPLE TEMPLATE
 transactionData[, BRAND := parse_vector(PROD_NAME, col_character())]
 transactionData[, BRAND := strsplit(PROD_NAME, " ")]
-# ^^^^ NOT WORKING CURRENTLY
+
+for (i in 1:nrow(transactionData)) {
+  transactionData$BRAND[[i]] <- transactionData$BRAND[[i]][1]
+}
+
+
+
 
 # MY OWN CODE (not based off sample template)
 # some initial visualisation of the purchasers
